@@ -12,7 +12,10 @@ var express = require('express')
   , group = require('./routes/wishes')
   , wishes = require('./routes/wishes') 
   ,http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , wishes = require('./routes/wishes')
+  , org = require('./routes/org')
+  , donation = require('./routes/donation');
 
 var app = express();
 
@@ -27,7 +30,6 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 
 // development only
@@ -79,4 +81,17 @@ http.createServer(app).listen(app.get('port'), function(){
 app.get('/home', function(req,res){
 	res.render('home');
 });
+
+app.get('/getWishes',wishes.getWishes);
+//app.get('/addOrganization',org.addOrganization);
+//app.get('/addDonation',donation.addDonation);
+app.get('/UploadWishes', function(req, res) {
+	res.render('../views/WishUploader.ejs');
+});
+app.post('/InsertWishes',wishes.uploadData);
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
+
 

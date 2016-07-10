@@ -18,3 +18,4 @@ exports.registercompany = function(req, res){
 	   res.render('register.ejs');
 
 	}
+
