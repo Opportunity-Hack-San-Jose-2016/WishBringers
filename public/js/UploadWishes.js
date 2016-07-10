@@ -23,7 +23,7 @@ app.service('fileUpload', ['$http', function ($http) {
        var request = {
                method: 'POST',
                url: uploadUrl,
-               data: {"fd" : fd,'date':'123'},
+               data: fd,
                headers: {
                    'Content-Type': undefined
                }

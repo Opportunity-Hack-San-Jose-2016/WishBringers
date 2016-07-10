@@ -3,7 +3,7 @@ var fs = require('fs');
 var Papa = require('babyparse');
 //var mysql = require('./mysql');
 exports.uploadData = function(req, res) {
-	console.log(req);
+	//console.log(req);
 	
 	var content = fs.readFileSync(req.files.file.path, { encoding: 'binary' });
 	Papa.parse(content, {
