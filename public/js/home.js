@@ -12,7 +12,7 @@ appVar.config([ '$routeProvider', function($routeProvider) {
 	
 } ]);
 
-appVar.controller('WishesController', function($scope, $http,$rootScope) {
+appVar.controller('WishesController', function($scope, $http,$rootScope,$window) {
 //uncomment this code when you write backend code	
 //	 $http({
 //	 		method : "GET",
@@ -26,6 +26,7 @@ appVar.controller('WishesController', function($scope, $http,$rootScope) {
 	$scope.items = [];
 	$scope.status = "Add to Cart";
 	$rootScope.wishesCount=0;
+	$rootScope.cartProducts = [];
 	
 	$scope.slider = {
 			  minValue: 1,
@@ -99,11 +100,12 @@ appVar.controller('WishesController', function($scope, $http,$rootScope) {
 	}
 	
 	$scope.addToCart = function($index,status){
-		$scope.cartProducts = [];
+		
 		if(status == false)
 			{
 			$rootScope.wishesCount = $rootScope.wishesCount+1;
-			$scope.cartProducts.push({"name":$scope.items[$index].FirstName, "price":$scope.items[$index].Price});
+			$rootScope.cartProducts.push({"name":$scope.items[$index].FirstName, "price":$scope.items[$index].Price,
+				"age" : $scope.items[$index].CardAge, "url": $scope.items[$index].ImageURL});
 			}
 		else
 			{
@@ -115,11 +117,11 @@ appVar.controller('WishesController', function($scope, $http,$rootScope) {
 	}
 
 	$scope.removeItem = function(index){
-		    $scope.items.splice(index, 1);
+		$rootScope.cartProducts.splice(index, 1);
 		  }
 	
-	$scope.filterResults = function(){
-		
+	$scope.saveInCache = function(){
+		$window.localStorage.setItem('wishes', JSON.stringify($rootScope.cartProducts));
 	}
 	
 });
