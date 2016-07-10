@@ -14,14 +14,14 @@ appVar.config([ '$routeProvider', function($routeProvider) {
 
 appVar.controller('WishesController', function($scope, $http) {
 //uncomment this code when you write backend code	
-//	 $http({
-//	 		method : "GET",
-//	 		url : "/getWishes",
-//	 		
-//	 	}).success(function (res) {
-//	 		console.log("The return value: "+JSON.stringify(res));
-//	 		$scope.wishes = res.wishes;
-//	 	});
+	 $http({
+	 		method : "GET",
+	 		url : "/getWishes",
+	 		
+	 	}).success(function (res) {
+	 		console.log("The return value: "+JSON.stringify(res));
+	 		$scope.wishes = res.wishes;
+	 	});
 	 
 	$scope.items = [];
 	$scope.status = "Add to Cart";
