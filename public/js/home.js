@@ -1,4 +1,7 @@
-var appVar = angular.module('app', [ "ngRoute","rzModule"]);
+var appVar = angular.module('app', [ "ngRoute","rzModule","elasticsearch"]);
+var index = 'wishlist1';
+var type = 'logs'
+
 
 appVar.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {
@@ -12,7 +15,14 @@ appVar.config([ '$routeProvider', function($routeProvider) {
 	
 } ]);
 
-appVar.controller('WishesController', function($scope, $http,$rootScope,$window) {
+appVar.service('client', function (esFactory) {
+    return esFactory({
+      host: 'https://b054df0d.ngrok.io',
+      apiVersion: '2.3',
+      log: 'trace'
+    });
+  });
+appVar.controller('WishesController', function($scope, $http,$rootScope,$window,client) {
 //uncomment this code when you write backend code	
 //	 $http({
 //	 		method : "GET",
@@ -36,65 +46,121 @@ appVar.controller('WishesController', function($scope, $http,$rootScope,$window)
 			    draggableRange: true
 			  }
 			};
+	
+	$scope.onSlider = function(){
+		 client.search({
+			  index: index,
+			  type: type,
+			  body: {
+			    query: { 
+			  		    "constant_score" : {
+			  		        "filter" : {
+			  		            "range" : {
+			  		                "price" : {
+			  		                    "gte": minValue,
+			  		                    "lt": maxValue
+			  		                }
+			  		            }
+			  		        }
+			  		    }
+			    }
+			  }
+			}).then(function (resp) {
+			    var hits = resp.hits.hits;
+			    console.log(hits);
+			}, function (err) {
+			    console.trace(err.message);
+			});
+	}
+	
+	$scope.onCheckSearch = function(bool,range){
+		var limit1=0;
+		var limit2=100;
+		
+		if(bool==true && range=="0-5"){
+			limit1=0;limit2=5;
+		}
+		else if(bool==true && range=="5-10")
+		{
+			limit2=10
+		}
+		else if(bool==true && range=="11-15")
+		{
+			limit3=15
+		}
+		
 
+		 client.search({
+			  index: index,
+			  type: type,
+			  body: {
+			    query: { 
+			  		    "constant_score" : {
+			  		        "filter" : {
+			  		            "range" : {
+			  		                "child_age" : {
+			  		                    "gte": limit1,
+			  		                    "lt": limit2
+			  		                }
+			  		            }
+			  		        }
+			  		    }
+			    }
+			  }
+			}).then(function (resp) {
+			    var hits = resp.hits.hits;
+			    console.log(hits);
+			}, function (err) {
+			    console.trace(err.message);
+			});
+	}
 
+	 $scope.filterResults = function(gender){
+		 client.search({
+			  index: index,
+			  type: type,
+			  body: {
+			    query: {
+			      match: {
+			        child_gender: gender
+			      }
+			    }
+			  }
+			}).then(function (resp) {
+			    var hits = resp.hits.hits;
+			    console.log(hits);
+			}, function (err) {
+			    console.trace(err.message);
+			});
+		 
+			}
+	 $scope.per_page = 12;
+	    $scope.page = 0;
+
+	    $scope.show_more = function () {
+	        $scope.page += 1;
+	        $scope.wishes($scope.page*$scope.per_page);
+	    };
 	 
-	$scope.wishes = {
-		"_id": {
-			"$oid": "57217aedc80eb63ef26cdd8a"
-		},
-		"name": "wishes",
-		"data": [{
-			"wishid": "1",
-			"Description": "toy",
-			"ImageURL": "http://fgt.netqnet.com/GiftImages/5934.jpg",
-			"FirstName": "sona",
-			"CardAge": 2,
-			"Price" :"$26"
-		}, {
-			"wishid": "2",
-			"desc": "toy",
-			"ImageURL": "http://fgt.netqnet.com/GiftImages/40.jpg",
-			"FirstName": "kona",
-			"CardAge": 5,
-			"Price" :"$26"
-		}, {
-			"wishid": "3",
-			"Description": "piyu",
-			"ImageURL": "http://fgt.netqnet.com/GiftImages/6407.jpg",
-			"FirstName": "sona",
-			"CardAge": 6,
-			"Price" :"$26"
-		}, {
-			"wishid": "4",
-			"Description": "toy",
-			"ImageURL": "http://fgt.netqnet.com/GiftImages/1792.jpg",
-			"FirstName": "kita",
-			"CardAge": 3,
-			"Price" :"$26"
-		}, {
-			"wishid": "1",
-			"Description": "toy",
-			"ImageURL": "http://fgt.netqnet.com/GiftImages/6233.jpg",
-			"FirstName": "sona",
-			"CardAge": 2,
-			"Price" :"$26"
-		}, {
-			"wishid": "1",
-			"Description": "toy",
-			"ImageURL": "http://fgt.netqnet.com/GiftImages/5934.jpg",
-			"FirstName": "sona",
-			"CardAge": 2,
-			"Price" :"$26"
-		}, {
-			"wishid": "1",
-			"Description": "toy",
-			"ImageURL": "http://fgt.netqnet.com/GiftImages/5934.jpg",
-			"FirstName": "sona",
-			"CardAge": 2,
-			"Price" :"$26"
-		}]
-};
+	$scope.wishes = function(){
+		 client.search({
+			  index: index,
+			  type: type,
+			  body: {
+				from : $scope.page,
+				size : $scope.per_page,
+			    query: {
+			      "match_all": {}
+			    }
+			  }
+			}).then(function (resp) {
+			    var hits = resp.hits.hits;
+			    console.log(hits);
+			}, function (err) {
+			    console.trace(err.message);
+			});
+	};
+	 
 	for (var i = 0; i < $scope.wishes.data.length; i++) {
 		$scope.items.push($scope.wishes.data[i])
 	}
@@ -125,5 +191,19 @@ appVar.controller('WishesController', function($scope, $http,$rootScope,$window)
 	}
 	
 });
+
+appVar.controller('submitTransaction', function($scope){
+	$scope.wishesBought = JSON.parse($window.localStorage['wishes'] || '{}');
+	$http({
+ 		method : "POST",
+ 		url : "/insertData",
+ 		
+ 	}).success(function (res) {
+ 		console.log("The return value: "+JSON.stringify(res));
+ 		
+ 	});
+	
+	
+})
 
 

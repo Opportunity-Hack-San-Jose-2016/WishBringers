@@ -89,6 +89,8 @@ app.get('/checkout',function(req,res) {
 });
 app.post('/InsertWishes',wishes.uploadData);
 
+app.post('/insertData', mysql.insertData );
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

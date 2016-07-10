@@ -88,4 +88,20 @@ function fetchData(callback, sqlQuery) {
 
 }
 
+exports.insertData = function(req,res)
+{
+    var amount = req.param("tot_amount");
+    var price = req.param("price");
+    var insertData = "insert into payment(`amount`,`payment_date`,`amount`) values('"+amount+"','"+sysdate+"','"+price+"');";
+    mysql.fetchData(function(err, results) {
+        if (err) {
+            throw err;
+        } else {
+            if (results) {
+                res.send(results);
+            }
+        }
+    }, insertData);
+}
+
 exports.fetchData = fetchData;

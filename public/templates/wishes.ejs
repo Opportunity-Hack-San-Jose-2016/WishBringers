@@ -15,7 +15,9 @@
 	                 name = "radSize"
 	                 id = "zerofive"
 	                 value = "0-5"
-	                 checked = "checked" />
+	                 ng-change='onCheckSearch(zerofive,"0-5")' 
+	                 ng-model="zerofive"
+	                  />
 			  <label for = "zerofive">0-5</label>
 			 </div>
 			 </br>
@@ -23,7 +25,9 @@
 	          <input type = "checkbox"
 	                 name = "radSize"
 	                 id = "fiveten"
-	                 value = "5-10" />
+	                 value = "5-10"
+	                 ng-change='onCheckSearch(fiveten,"5-10")' 
+	                 ng-model="fiveten" />
 	         <label for = "fiveten">5-10</label>
 	         </div>
 	         </br>
@@ -31,6 +35,8 @@
 	          <input type = "checkbox"
 	                 name = "radSize"
 	                 id = "elevenfifteen"
+	                 ng-change='onCheckSearch(elevenfifteen,"11-15")' 
+	                 ng-model="elevenfifteen"
 	                 value = "11-15" />
 	          <label for = "elevenfifteen">11-15</label>
 	        </div>
@@ -39,8 +45,9 @@
 	<h3>Gender</h3>         
 	          <input type = "radio"
 	                 name = "radSize"
+	                 ng-model = "isChecked"
 	                 id = "girl"
-	                 value = "Girl"
+	                 value = 1
 	                 checked = "checked" 
 	                 />
 	          <label for = "girl">Girl</label>
@@ -48,11 +55,12 @@
 	          <input type = "radio"
 	                 name = "radSize"
 	                 id = "boy"
-	                 value = "Boy" 
+	                 ng-model = "isChecked"
+	                 value = 0 
 	                />
 	          <label for = "boy">Boy</label>
-	  <button type="button" ng-click="filterResults()">Go</button>
  </form>
+   <button type="button" class="btn btn-primary" ng-click="filterResults()">Go</button>
 </div>
 <div class="col-md-9">
     <div ng-repeat="data in items" class="col-md-4" ng-model="wishlist">
@@ -88,6 +96,11 @@
 	    
     </div>
  </div>    
+</div>
+
+<center>
+<button type="button"  class="btn btn-primary" ng-click="wishes()">Show More</button>
+</center>
 
 
 </div>
