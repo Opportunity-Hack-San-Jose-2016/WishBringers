@@ -9,10 +9,9 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , mysql = require('./routes/mysql')
-  , group = require('./routes/wishes')
-  , wishes = require('./routes/wishes') 
-  ,http = require('http')
-  , path = require('path');
+  , wishes = require('./routes/wishes')
+  , org = require('./routes/org')
+  , donation = require('./routes/donation');
 
 var app = express();
 
@@ -29,37 +28,24 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
-
-// app.get('/getWishes',group.getWishes);
-app.get('/totalWishes', function(req, res) {
-	
-	 // req.session.valid = true;
-	  res.render('totalWishes');
-	});
-
-
-//app.get('/totalWishes', function(req, res) {
-////    var user_id = req.body.userSelection;
-////    var name = req.body.username;
-//    
-//    res.redirect('/totalWishes');
-//    	
-//    
-//});
-
-
+app.get('/getWishes',wishes.getWishes);
+//app.get('/addOrganization',org.addOrganization);
+//app.get('/addDonation',donation.addDonation);
 app.get('/UploadWishes', function(req, res) {
 	res.render('../views/WishUploader.ejs');
 });
 app.post('/InsertWishes',wishes.uploadData);
+
 http.createServer(app).listen(app.get('port'), function(){
-	  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+
 
