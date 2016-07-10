@@ -73,11 +73,6 @@ app.get('/home/*', function(req,res){
 	res.render('home');
 });
 
-
-http.createServer(app).listen(app.get('port'), function(){
-	  console.log('Express server listening on port ' + app.get('port'));
-});
-
 app.get('/home', function(req,res){
 	res.render('home');
 });
@@ -87,6 +82,10 @@ app.get('/getWishes',wishes.getWishes);
 //app.get('/addDonation',donation.addDonation);
 app.get('/UploadWishes', function(req, res) {
 	res.render('../views/WishUploader.ejs');
+});
+
+app.get('/checkout',function(req,res) {
+	res.render('checkout');
 });
 app.post('/InsertWishes',wishes.uploadData);
 
