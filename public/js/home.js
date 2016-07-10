@@ -99,21 +99,24 @@ appVar.controller('WishesController', function($scope, $http,$rootScope) {
 	}
 	
 	$scope.addToCart = function($index,status){
-		
+		$scope.cartProducts = [];
 		if(status == false)
 			{
 			$rootScope.wishesCount = $rootScope.wishesCount+1;
+			$scope.cartProducts.push({"name":$scope.items[$index].FirstName, "price":$scope.items[$index].Price});
 			}
 		else
 			{
 			$rootScope.wishesCount = $rootScope.wishesCount -1;
+			$scope.removeItem($index);
+			
 			}
-		console.log("status-----------"+$scope.wishesCount);
-		var name = $scope.items[$index].FirstName;
-		var price = $scope.items[$index].Price;
-		console.log("name: "+name+" price "+price);
 		
 	}
+
+	$scope.removeItem = function(index){
+		    $scope.items.splice(index, 1);
+		  }
 	
 	$scope.filterResults = function(){
 		
