@@ -6,7 +6,8 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
-  , http = require('http')
+  , wishes = require('./routes/wishes') 
+  ,http = require('http')
   , path = require('path');
 
 var app = express();
@@ -30,7 +31,11 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+app.get('/UploadWishes', function(req, res) {
+	res.render('../views/WishUploader.ejs');
 });
+app.post('/InsertWishes',wish.);
+http.createServer(app).listen(app.get('port'), function(){
+	  console.log('Express server listening on port ' + app.get('port'));
+});
+

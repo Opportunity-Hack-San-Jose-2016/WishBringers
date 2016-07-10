@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Family Giving Tree</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/main.css" />
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<!-- <link href="../assests/css/the-big-picture.css" rel="stylesheet"> -->
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link
+	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+<script src="/js/UploadWishes.js"></script>
+
+
+</head>
+<body>
+	<img alt="full screen background image"
+		src="../images/water-quality6.jpg" id="full-screen-background-image" />
+
+	<!--Start Header -->
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Family Giving Tree</a> </a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#about">Signout</a></li>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Close Header -->
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<div container>
+		<div class="well">
+
+			<div class="row">
+
+				<div ng-app="UploadWish" ng-controller="UploadWishesController">
+					<div class="col-lg-2">
+					<label class="btn btn-default btn-file">
+					<input type = "file" file-model = "csvFile"/>
+                     </label>
+                     <button type="button" class="btn btn-primary" ng-click = "uploadFile()">Upload</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+
+
+<!--Start Footer -->
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#about"></a></li>
+	</div>
+	</div>
+</nav>
+
+<!-- Close Footer -->
+
+</html>
