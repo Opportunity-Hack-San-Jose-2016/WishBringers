@@ -38,6 +38,9 @@ appVar.controller('WishesController', function($scope, $http,$rootScope,$window,
 	$rootScope.wishesCount=0;
 	$rootScope.cartProducts = [];
 	
+	$scope.logourl = localStorage.getItem('logourl');
+	console.log($scope.logourl);
+	
 	$scope.slider = {
 			  minValue: 1,
 			  maxValue: 1000,
