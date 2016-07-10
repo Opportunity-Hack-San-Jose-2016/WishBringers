@@ -63,7 +63,7 @@
    <button type="button" class="btn btn-primary" ng-click="filterResults()">Go</button>
 </div>
 <div class="col-md-9">
-    <div ng-repeat="data in items" class="col-md-4" ng-model="wishlist">
+    <div ng-repeat="data in items track by $index" class="col-md-4" ng-model="wishlist">
     <div id="product-box" class="well">
     	<div id ="individual-products" style="width:100%;height:230px;border:1px solid ;border-radius: 15px; background-color:#ffffff; well" >
     	     <input id="hiddenattr" type="hidden" value="{{($index+1)%9}}" ;>
@@ -71,21 +71,21 @@
 		     </br>
 			    <div class="block">
 		    		<label>Name</label>
-		    		{{data.FirstName}}
+		    		{{data.child_name}}
 				</div>
 				 <div class="block">
 		    		<label>Age:</label>
-		    		 {{data.CardAge}}
+		    		 {{data.child_age}}
 				</div>
 				  <div class="block" >
 		    		<label>Price: </label>
-		    		{{data.Price}}
+		    		{{data.price}}
 				</div>
 				
 		     </div>
 		     <hr>
 		     <div class="col-md-6" style="margin-top: 10%; margin-left:15%">
-		      <img src={{data.ImageURL}} style="width:150%;height:100%"/>
+		      <img src={{data.imageurl}} style="width:150%;height:100%"/>
 		     </div>
 	    </div>
 	    <br>

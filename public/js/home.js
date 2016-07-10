@@ -23,17 +23,37 @@ appVar.service('client', function (esFactory) {
     });
   });
 appVar.controller('WishesController', function($scope, $http,$rootScope,$window,client) {
-//uncomment this code when you write backend code	
-//	 $http({
-//	 		method : "GET",
-//	 		url : "/getWishes",
-//	 		
-//	 	}).success(function (res) {
-//	 		console.log("The return value: "+JSON.stringify(res));
-//	 		$scope.wishes = res.wishes;
-//	 	});
-	 
+
 	$scope.items = [];
+	
+	$scope.wishesData = function(){
+		console.log("inside wishes----------");
+		 client.search({
+			  index: index,
+			  type: type,
+			  body: {
+				from : $scope.page,
+				size : $scope.per_page,
+			    query: {
+			      "match_all": {}
+			    }
+			  }
+			}).then(function (resp) {
+			    $scope.res = resp.hits.hits;
+			    for (var i = 0; i < $scope.res.length; i++) {
+					$scope.items.push($scope.res[i]._source)
+				}
+				
+			  //  console.log( "inside wishes result-----------------"+hits);
+			}, function (err) {
+			    console.trace(err.message);
+			});
+	};
+	 
+	
+	$scope.wishesData();
+	 
+
 	$scope.status = "Add to Cart";
 	$rootScope.wishesCount=0;
 	$rootScope.cartProducts = [];
@@ -145,36 +165,15 @@ appVar.controller('WishesController', function($scope, $http,$rootScope,$window,
 	        $scope.wishes($scope.page*$scope.per_page);
 	    };
 	 
-	$scope.wishes = function(){
-		 client.search({
-			  index: index,
-			  type: type,
-			  body: {
-				from : $scope.page,
-				size : $scope.per_page,
-			    query: {
-			      "match_all": {}
-			    }
-			  }
-			}).then(function (resp) {
-			    var hits = resp.hits.hits;
-			    console.log(hits);
-			}, function (err) {
-			    console.trace(err.message);
-			});
-	};
-	 
-	for (var i = 0; i < $scope.wishes.data.length; i++) {
-		$scope.items.push($scope.wishes.data[i])
-	}
+	
 	
 	$scope.addToCart = function($index,status){
 		
 		if(status == false)
 			{
 			$rootScope.wishesCount = $rootScope.wishesCount+1;
-			$rootScope.cartProducts.push({"name":$scope.items[$index].FirstName, "price":$scope.items[$index].Price,
-				"age" : $scope.items[$index].CardAge, "url": $scope.items[$index].ImageURL});
+			$rootScope.cartProducts.push({"name":$scope.items[$index].child_name, "price":$scope.items[$index].price,
+				"age" : $scope.items[$index].child_age, "url": $scope.items[$index].imageurl});
 			}
 		else
 			{

@@ -7,7 +7,7 @@ appVar.controller('TotalWishesController', function($scope,$window) {
 	$scope.length = $scope.wishlist.length;
 	for(var i = 0; i<$scope.wishlist.length;i++)
 		{
-		$scope.total = $scope.total+(parseInt("10",$scope.wishlist[0].price.split('$')[1]));
+		$scope.total = $scope.total+$scope.wishlist[0].price;
 		}
 	
 });
