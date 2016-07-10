@@ -16,10 +16,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
  }]);
 
 app.service('fileUpload', ['$http', function ($http) {
-    this.uploadFileToUrl = function(file, uploadUrl){
+    this.uploadFileToUrl = function(file, uploadUrl,$scope){
        var fd = new FormData();
        fd.append('file', file);
-    
        var request = {
                method: 'POST',
                url: uploadUrl,
@@ -32,7 +31,9 @@ app.service('fileUpload', ['$http', function ($http) {
        // SEND THE FILES.
        $http(request)
            .success(function (d) {
+               $scope.showProgress=false;
                alert(d);
+              
            })
            .error(function () {
            });
@@ -51,13 +52,15 @@ app.service('fileUpload', ['$http', function ($http) {
  }]);
 
 app.controller('UploadWishesController', ['$scope', 'fileUpload', function($scope, fileUpload){
-    $scope.uploadFile = function(){
+    console.log($scope.showProgress);
+	$scope.showProgress = false;
+	$scope.uploadFile = function(){
        var file = $scope.csvFile;
-       
+       console.log($scope.showProgress);
        console.log('file is ' );
        console.dir(file);
-       
+       $scope.showProgress = true;
        var uploadUrl = "/InsertWishes";
-       fileUpload.uploadFileToUrl(file, uploadUrl);
+       fileUpload.uploadFileToUrl(file, uploadUrl,$scope);
     };
  }]);
