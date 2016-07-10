@@ -9,7 +9,10 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , mysql = require('./routes/mysql')
-  , group = require('./routes/wishes');;
+  , group = require('./routes/wishes')
+  , wishes = require('./routes/wishes') 
+  ,http = require('http')
+  , path = require('path');
 
 var app = express();
 
@@ -33,6 +36,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+
 // app.get('/getWishes',group.getWishes);
 app.get('/totalWishes', function(req, res) {
 	
@@ -50,6 +54,12 @@ app.get('/totalWishes', function(req, res) {
 //    
 //});
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+
+app.get('/UploadWishes', function(req, res) {
+	res.render('../views/WishUploader.ejs');
 });
+app.post('/InsertWishes',wishes.uploadData);
+http.createServer(app).listen(app.get('port'), function(){
+	  console.log('Express server listening on port ' + app.get('port'));
+});
+
