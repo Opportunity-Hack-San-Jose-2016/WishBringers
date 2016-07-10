@@ -1,0 +1,93 @@
+<!-- views/login.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+    <script src= "/js/register.js"></script>
+    
+    
+    <style>
+        body        { padding-top:80px; }
+    </style>
+</head>
+<body ng-app="app" style="background-image: url(images/water-quality4.jpg); background-size: 100% auto">
+<div class="container" ng-controller="RegisterController">
+
+<form class="form-horizontal" name="userForm" ng-submit="registration()" style="opacity:0.8">
+<fieldset>
+<div container>
+<div row>
+<div class="well">
+<!-- Form Name -->
+<legend>Registration</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="fn">Email Address</label>  
+  <div class="col-md-4">
+  <input id="fn" name="fn" type="text" placeholder="Please provide Email Address" ng-model="user.emailaddress" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="fn">Name</label>  
+  <div class="col-md-4">
+  <input id="organizationName" name="organizationName" type="text" placeholder="Please provide first name" ng-model="user.name" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="ln">Password</label>  
+  <div class="col-md-4">
+  <input id="ln" name="ln" type="password" placeholder="Please provide Password" ng-model="user.password" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="cmpny">Confirm Password</label>  
+  <div class="col-md-4">
+  <input id="cmpny" name="cmpny" type="password" placeholder="Please confirm your password" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="phone">Text InputPhone</label>  
+  <div class="col-md-4">
+  <input id="phone" name="phone" type="text" placeholder="Please provide phone number" ng-model="user.phone" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="submit"></label>
+  <div class="col-md-4">
+    <button id="submit" name="submit" ng-click="registerUser()" class="btn btn-primary">SUBMIT</button>
+  </div>
+</div>
+
+</fieldset>
+
+</div>
+</div>
+</div>
+</form>
+
+
+</div>
+</body>
+</html>
+.

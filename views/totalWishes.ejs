@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>    	
+		<title> Family Giving Tree  </title>
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
+    	<link rel="stylesheet" href="/assets/css/main.css" />
+    	<link rel='stylesheet' href='/stylesheets/style.css' />
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
+   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+       
+  <script src= "/js/totalWishes.js"></script>
+  <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+	</head>
+	
+<body ng-app="app" ng-controller="TotalWishesController">
+<img alt="full screen background image" src="../images/water-quality6.jpg" id="full-screen-background-image" />
+ <div ng-repeat="product in wishlist" class="col-md-9 well">
+	  <div class="col-md-4">
+	    <img src={{product.url}} style="width:70%;height:100%"/>
+	  </div>
+	  <div class="col-md-7">
+	                 <div class="block">
+			    		<label>Name</label>
+			    		{{product.name}}
+					</div>
+					 <div class="block">
+			    		<label>Price:</label>
+			    		 {{product.price}}
+					</div>
+					  <div class="block" >
+			    		<label>Age: </label>
+			    		{{product.age}}
+					</div>
+					
+	  </div>
+  <hr>
+ </div>
+ <div class="ng-md-offset-2"></div>
+ <div class="col-md-3 well">
+      <span>
+        Subtotal ({{length}} wishes):<span style="color:red">${{total}}</span>
+      </span>
+ 
+
+ 
+    </span>
+  </p> <!-- for paragraph -->
+
+
+
+  <button type="button" class="btn btn-primary"> Proceed to checkout</button>
+  
+ 
+</div>
+ </div>
+</body>
+</html>
