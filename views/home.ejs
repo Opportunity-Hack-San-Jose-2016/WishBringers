@@ -5,23 +5,23 @@
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
     	<link rel="stylesheet" href="/assets/css/main.css" />
     	<link rel='stylesheet' href='/stylesheets/style.css' />
-    	<!-- <link href="../assests/css/the-big-picture.css" rel="stylesheet"> -->
     
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+   
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
        
   <script src= "/js/home.js"></script>
 
   <script src= "/services/WishesServices.js"></script>
-  
-  
-  
+  <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
 	</head>
-    <body>
+	
+    <body  ng-app="app" ng-controller="WishesController">
     <img alt="full screen background image" src="../images/water-quality6.jpg" id="full-screen-background-image" /> 
 	
      <!--Start Header -->
@@ -29,14 +29,12 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
  		<div class="container-fluid">
     	<div class="navbar-header">
-      	<a class="navbar-brand" href="#">Family Giving Tree</a>
-      	</a>
-      
+      	<span class="navbar-brand" >Family Giving Tree</span>  
     	
   	 </div>
   	<div class="navbar-collapse collapse"> 
   	 <ul class="nav navbar-nav navbar-right">
-      	<li><a href="#about">Signout</a></li>
+      	<li> <a href="#wishestotal">{{wishesCount}}<span class="glyphicon glyphicon-shopping-cart"></span></a></li>
     </div>
  </div>
 	</nav>	
@@ -49,7 +47,7 @@
 
 		 <div class="row">
 	       
-			    <div  ng-app="app" ng-controller="WishesController">
+			    <div>
 			    
 			   <div ng-view></div>
 			

@@ -1,4 +1,4 @@
-var appVar = angular.module('app', [ "ngRoute"]);
+var appVar = angular.module('app', [ "ngRoute","rzModule"]);
 
 appVar.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {
@@ -12,7 +12,7 @@ appVar.config([ '$routeProvider', function($routeProvider) {
 	
 } ]);
 
-appVar.controller('WishesController', function($scope, $http) {
+appVar.controller('WishesController', function($scope, $http,$rootScope) {
 //uncomment this code when you write backend code	
 //	 $http({
 //	 		method : "GET",
@@ -25,7 +25,19 @@ appVar.controller('WishesController', function($scope, $http) {
 	 
 	$scope.items = [];
 	$scope.status = "Add to Cart";
-	$scope.class = "btn btn-primary";
+	$rootScope.wishesCount=0;
+	
+	$scope.slider = {
+			  minValue: 1,
+			  maxValue: 1000,
+			  options: {
+			   
+			    draggableRange: true
+			  }
+			};
+
+
+	 
 	$scope.wishes = {
 		"_id": {
 			"$oid": "57217aedc80eb63ef26cdd8a"
@@ -86,22 +98,24 @@ appVar.controller('WishesController', function($scope, $http) {
 		$scope.items.push($scope.wishes.data[i])
 	}
 	
-	$scope.addToCart = function($index){
-		console.log("index......."+$index);
-		if($scope.status == 'Add to Cart')
-			{
-			$scope.status = "Remove from Cart"
-			$scope.class = "btn btn-danger";
-			}
-		else {
-			$scope.status = "Add to Cart"
-			$scope.class = "btn btn-primary";
-				
-		}
+	$scope.addToCart = function($index,status){
 		
+		if(status == false)
+			{
+			$rootScope.wishesCount = $rootScope.wishesCount+1;
+			}
+		else
+			{
+			$rootScope.wishesCount = $rootScope.wishesCount -1;
+			}
+		console.log("status-----------"+$scope.wishesCount);
 		var name = $scope.items[$index].FirstName;
 		var price = $scope.items[$index].Price;
 		console.log("name: "+name+" price "+price);
+		
+	}
+	
+	$scope.filterResults = function(){
 		
 	}
 	
